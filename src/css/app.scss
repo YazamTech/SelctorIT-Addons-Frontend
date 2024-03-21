@@ -1,0 +1,16 @@
+// app global css in SCSS form
+
+:root {
+  --q-dark: #424242;
+  --second-color: #ffff8c;
+}
+
+
+
+body.body--dark {
+  background: #333333;
+}
+
+body.q--dark {
+  background: #333333;
+}

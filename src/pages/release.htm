@@ -1,0 +1,96 @@
+<div id="app">
+	<v-app v-bind:dark="dark">
+		<v-content>
+			<v-layout fill-height row justify-center align-center>
+				<v-card flat style="max-width: 620px;">
+					<v-toolbar color="blue-grey" dark>
+						<v-dialog v-model="show_details" persistent width="66%" :fullscreen="$vuetify.breakpoint.smAndDown">
+							<v-btn icon slot="activator" :title="$vuetify.rtl ? 'פרטים' : 'details'"><v-icon>mdi-details</v-icon></v-btn>
+							<v-card flat height="100%">
+								<v-layout column fill-height>
+									<v-flex shrink>
+										<v-card-title class="headline">
+											{{ $vuetify.rtl ? "פרטי סינון" : "Filtering Details" }}<v-spacer></v-spacer>
+											<v-btn v-if="!document.documentMode" icon :title="$vuetify.rtl ? 'שמור' : 'save'" :href="window.location.pathname + '/details'" download="Filtering Details.htm">
+												<v-icon>mdi-content-save</v-icon>
+											</v-btn>
+											<v-btn icon :title="$vuetify.rtl ? 'סגור' : 'dismiss'" @click.stop="show_details=false"><v-icon>mdi-close</v-icon></v-btn>
+										</v-card-title>
+										<v-divider></v-divider>
+									</v-flex>
+									<v-flex grow style="position: relative; height: 60vh;">
+										<iframe seamless id="details" :src="window.location.pathname + '/details'" style="border: none; overflow: auto; margin: 0; padding: 10px 10px 0 0; position: absolute; width: 100%; height: 100%;"
+														onload="contentDocument.body.style.color = vm.dark ? 'white' : 'black'"></iframe>
+									</v-flex>
+								</v-layout>
+							</v-card>
+						</v-dialog>
+						<v-btn v-if="quarantined" icon :title="$vuetify.rtl ? 'הוריד' : 'download'" :href="window.location.pathname + '/download?password=' + encodeURIComponent(password)" id="download">
+							<v-icon :style="password ? 'position: relative; animation: download 0.5s linear 0s infinite alternate;' : ''">mdi-download</v-icon>
+						</v-btn>
+						<v-btn v-if="quarantined && recipient" icon :title="$vuetify.rtl ? 'שלח' : 'send'" :href="window.location.pathname + '/send?password=' + encodeURIComponent(password)"><v-icon>mdi-send</v-icon></v-btn>
+						<v-spacer></v-spacer>
+						<v-btn icon :title="$vuetify.rtl ? 'ממשק' : 'theme'" @click.stop="dark = !dark; window.localStorage.dark = dark.toString();"><v-icon>mdi-invert-colors</v-icon></v-btn>
+						&nbsp;&nbsp;&nbsp;
+						<img src="https://localhost/Engine/static/logo" height=40>
+					</v-toolbar>
+
+					<v-list dense>
+						<v-list-tile v-if="name">
+							<v-list-tile-action><v-icon>mdi-file</v-icon></v-list-tile-action>
+							<v-list-tile-content><v-list-tile-title>{{ name }}</v-list-tile-title><v-list-tile-sub-title class="caption">{{ path }}</v-list-tile-sub-title></v-list-tile-content>
+						</v-list-tile>
+						<v-list-tile v-if="subject">
+							<v-list-tile-action><v-icon>mdi-email</v-icon></v-list-tile-action>
+							<v-list-tile-content>{{ subject }}</v-list-tile-content>
+						</v-list-tile>
+						<v-list-tile v-if="recipient">
+							<v-list-tile-action><v-icon>mdi-account-arrow-left</v-icon></v-list-tile-action>
+							<v-list-tile-content>{{ $vuetify.rtl ? "אל" : "To"}}:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</v-list-tile-content>
+							<v-list-tile-content class="align-end">{{ recipient }}</v-list-tile-content>
+						</v-list-tile>
+						<v-list-tile v-if="client">
+							<v-list-tile-action><v-icon>mdi-account-arrow-right</v-icon></v-list-tile-action>
+							<v-list-tile-content>{{ $vuetify.rtl ? "מאת" : "From"}}:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</v-list-tile-content>
+							<v-list-tile-content class="align-end">{{ client }}</v-list-tile-content>
+						</v-list-tile>
+						<v-list-tile>
+							<v-list-tile-action><v-icon>mdi-weight</v-icon></v-list-tile-action>
+							<v-list-tile-content>{{ $vuetify.rtl ? "גודל" : "Size"}}:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</v-list-tile-content>
+							<v-list-tile-content class="align-end">{{ size.toLocaleString() }} {{ $vuetify.rtl ? "בתים" : "bytes" }}</v-list-tile-content>
+						</v-list-tile>
+						<v-list-tile>
+							<v-list-tile-action><v-icon>mdi-calendar-clock</v-icon></v-list-tile-action>
+							<v-list-tile-content>{{ $vuetify.rtl ? "טופל בתאריך" : "Processed on"}}:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</v-list-tile-content>
+							<v-list-tile-content class="align-end">{{ new Date(date * 1000).toLocaleString("sv") }}</v-list-tile-content>
+						</v-list-tile>
+						<v-list-tile>
+							<v-list-tile-action><v-icon>mdi-security</v-icon></v-list-tile-action>
+							<v-list-tile-content>{{ $vuetify.rtl ? "תוצאת הסינון" : "Status"}}:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</v-list-tile-content>
+							<v-list-tile-content class="align-end">
+								{{ status & 2 ? ($vuetify.rtl ? "נחסם" : "rejected") : (status & 32 ? ($vuetify.rtl ? "חלקי" : "partial") : (status & 1 ? ($vuetify.rtl ? "שונה" : "modified") : ($vuetify.rtl ? "מקורי" : "intact"))) }}{{ status & 4 ? ", " + ($vuetify.rtl ? "מוגן" : "protected") : "" }}
+							</v-list-tile-content>
+						</v-list-tile>
+						<v-list-tile>
+							<v-list-tile-action><v-icon>mdi-barcode-scan</v-icon></v-list-tile-action>
+							<v-list-tile-content>{{ $vuetify.rtl ? "מזהה" : "Permanent ID"}}:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</v-list-tile-content>
+							<v-list-tile-content class="align-end">{{ id }}</v-list-tile-content>
+						</v-list-tile>
+						<v-divider v-if="quarantined && status & 4"></v-divider>
+						<v-list-tile v-if="quarantined && status & 4">
+							<v-list-tile-action><v-icon color="warning">mdi-key-variant</v-icon></v-list-tile-action>
+							<v-list-tile-content style="flex: 0 0 auto;">{{ $vuetify.rtl ? "סיסמה" : "Password"}}:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</v-list-tile-content>
+							<v-text-field v-model="password" clearable hide-details single-line class="align-end pa-0 my-0" clear-icon="mdi-close" id="password" autofocus
+														:type="unveil ? 'text' : 'password'" :append-icon="'mdi-' + (unveil ? 'eye-off' : 'eye')" @click:append.stop="unveil = !unveil"
+														@keydown.enter.stop.prevent="document.getElementById('download').click()"/>
+						</v-list-tile>
+					</v-list>
+
+					<v-footer color="blue-grey" class="white--text" hidden>
+						<v-spacer></v-spacer>&copy; 2019 {{ $vuetify.rtl ? "יזמטק בע״מ. כל הזכויות שמורות." : "YazamTech Ltd. All rights reserved." }}<v-spacer></v-spacer>
+					</v-footer>
+				</v-card>
+			</v-layout>
+		</v-content>
+	</v-app>
+</div>
