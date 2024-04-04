@@ -1,6 +1,6 @@
 <template>
   <h1>Index Page</h1>
-  <q-btn title="Release" label="Release" @click="router.push('/release')" />
+  <q-btn title="Personal Record" label="Personal Record" @click="router.push('/personalrecord')" />
 </template>
 
 <script>
@@ -8,7 +8,7 @@ import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
-  name: "ReleasePage",
+  name: "PersonalRecordPage",
   data() {
     const currentLocation = ref(window.location)
     const router = useRouter()

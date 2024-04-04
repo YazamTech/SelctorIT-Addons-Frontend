@@ -12,7 +12,7 @@ export const selectedHost = hostList.local
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
-const api = axios.create({ baseURL: `${selectedHost}/managementext` })
+const api = axios.create({ baseURL: `${selectedHost}/eme` })
 const engineApi = axios.create({ baseURL: `${selectedHost}/engine` })
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api
