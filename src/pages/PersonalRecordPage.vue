@@ -40,122 +40,141 @@
           /></q-btn>
         </div>
       </q-toolbar>
-      <div id="htmlReport" class="q-py-sm row container">
-        <q-list class="meta">
-          <q-item v-if="data.name" dense>
-            <q-item-section side>
-              <q-icon name="mdi-file" />
-            </q-item-section>
-            <q-item-section
-              ><q-item-label
-                ><div class="elipsis">
-                  <span class="text-weight-bold">File name:</span>
-                  {{ data.name }}
-                </div>
-                <q-tooltip>
-                  {{ data.name }}
-                </q-tooltip> </q-item-label
-              ><q-item-label class="elipsis" caption
-                >{{ data.path
-                }}<q-tooltip>
-                  {{ data.path }}
-                </q-tooltip></q-item-label
-              ></q-item-section
-            >
-          </q-item>
-          <q-item v-if="data.subject" dense>
-            <q-item-section side>
-              <q-icon name="mdi-email" />
-            </q-item-section>
-            <q-item-section v-if="data.subject"
-              ><div>
-                <span class="text-weight-bold">Subject:</span>
-                {{ data.subject }}
-              </div></q-item-section
-            >
-          </q-item>
-          <q-item v-if="data.recipient" dense>
-            <q-item-section side>
-              <q-icon name="mdi-account-arrow-left" />
-            </q-item-section>
-            <q-item-section v-if="data.recipient"
-              ><div>
-                <span class="text-weight-bold">To:</span> {{ data.recipient }}
-              </div></q-item-section
-            >
-          </q-item>
-          <q-item v-if="data.client" dense>
-            <q-item-section side>
-              <q-icon name="mdi-account-arrow-right" />
-            </q-item-section>
-            <q-item-section v-if="data.client"
-              ><div>
-                <span class="text-weight-bold">From:</span> {{ data.client }}
-              </div></q-item-section
-            >
-          </q-item>
-          <q-item dense>
-            <q-item-section side>
-              <q-icon name="mdi-weight" />
-            </q-item-section>
-            <q-item-section
-              ><div>
-                <span class="text-weight-bold">Size:</span>
-                {{ parseSize(data.size) }}
-              </div></q-item-section
-            >
-          </q-item>
-          <q-item dense>
-            <q-item-section side>
-              <q-icon name="mdi-calendar-clock" />
-            </q-item-section>
-            <q-item-section
-              ><div>
-                <span class="text-weight-bold">Processed on:</span>
-                {{ parseDate(data.date) }}
-              </div></q-item-section
-            >
-          </q-item>
-          <q-item dense>
-            <q-item-section side>
-              <q-icon name="mdi-security" />
-            </q-item-section>
-            <q-item-section
-              ><div>
-                <span class="text-weight-bold">Status:</span>
-                {{
-                  data.status & 2
-                    ? rtl
-                      ? "נחסם"
-                      : "rejected"
-                    : data.status & 32
-                    ? rtl
-                      ? "חלקי"
-                      : "partial"
-                    : data.status & 1
-                    ? rtl
-                      ? "שונה"
-                      : "modified"
-                    : rtl
-                    ? "מקורי"
-                    : "intact"
-                }}{{
-                  data.status & 4 ? ", " + (rtl ? "מוגן" : "protected") : ""
-                }}
-              </div></q-item-section
-            >
-          </q-item>
-          <q-item dense>
-            <q-item-section side>
-              <q-icon name="mdi-barcode-scan" />
-            </q-item-section>
-            <q-item-section
-              ><div>
-                <span class="text-weight-bold">ID:</span> {{ data.id }}
-              </div></q-item-section
-            >
-          </q-item>
-        </q-list>
+      <div class="q-py-sm row container">
+        <div>
+          <div>
+            <q-list class="meta">
+              <q-item v-if="data.name" dense>
+                <q-item-section side>
+                  <q-icon name="mdi-file" />
+                </q-item-section>
+                <q-item-section
+                  ><q-item-label
+                    ><div class="elipsis">
+                      <span class="text-weight-bold">File name:</span>
+                      {{ data.name }}
+                    </div>
+                    <q-tooltip>
+                      {{ data.name }}
+                    </q-tooltip> </q-item-label
+                  ><q-item-label class="elipsis" caption
+                    >{{ data.path
+                    }}<q-tooltip>
+                      {{ data.path }}
+                    </q-tooltip></q-item-label
+                  ></q-item-section
+                >
+              </q-item>
+              <q-item v-if="data.subject" dense>
+                <q-item-section side>
+                  <q-icon name="mdi-email" />
+                </q-item-section>
+                <q-item-section v-if="data.subject"
+                  ><div>
+                    <span class="text-weight-bold">Subject:</span>
+                    {{ data.subject }}
+                  </div></q-item-section
+                >
+              </q-item>
+              <q-item v-if="data.recipient" dense>
+                <q-item-section side>
+                  <q-icon name="mdi-account-arrow-left" />
+                </q-item-section>
+                <q-item-section v-if="data.recipient"
+                  ><div>
+                    <span class="text-weight-bold">To:</span>
+                    {{ data.recipient }}
+                  </div></q-item-section
+                >
+              </q-item>
+              <q-item v-if="data.client" dense>
+                <q-item-section side>
+                  <q-icon name="mdi-account-arrow-right" />
+                </q-item-section>
+                <q-item-section v-if="data.client"
+                  ><div>
+                    <span class="text-weight-bold">From:</span>
+                    {{ data.client }}
+                  </div></q-item-section
+                >
+              </q-item>
+              <q-item dense>
+                <q-item-section side>
+                  <q-icon name="mdi-weight" />
+                </q-item-section>
+                <q-item-section
+                  ><div>
+                    <span class="text-weight-bold">Size:</span>
+                    {{ parseSize(data.size) }}
+                  </div></q-item-section
+                >
+              </q-item>
+              <q-item dense>
+                <q-item-section side>
+                  <q-icon name="mdi-calendar-clock" />
+                </q-item-section>
+                <q-item-section
+                  ><div>
+                    <span class="text-weight-bold">Processed on:</span>
+                    {{ parseDate(data.date) }}
+                  </div></q-item-section
+                >
+              </q-item>
+              <q-item dense>
+                <q-item-section side>
+                  <q-icon name="mdi-security" />
+                </q-item-section>
+                <q-item-section
+                  ><div>
+                    <span class="text-weight-bold">Status:</span>
+                    {{
+                      data.status & 2
+                        ? rtl
+                          ? "נחסם"
+                          : "rejected"
+                        : data.status & 32
+                        ? rtl
+                          ? "חלקי"
+                          : "partial"
+                        : data.status & 1
+                        ? rtl
+                          ? "שונה"
+                          : "modified"
+                        : rtl
+                        ? "מקורי"
+                        : "intact"
+                    }}{{
+                      data.status & 4 ? ", " + (rtl ? "מוגן" : "protected") : ""
+                    }}
+                  </div></q-item-section
+                >
+              </q-item>
+              <q-item dense>
+                <q-item-section side>
+                  <q-icon name="mdi-barcode-scan" />
+                </q-item-section>
+                <q-item-section
+                  ><div>
+                    <span class="text-weight-bold">ID:</span> {{ data.id }}
+                  </div></q-item-section
+                >
+              </q-item>
+            </q-list>
+          </div>
+          <div
+            class="q-mt-md q-ml-sm q-pa-sm bg-grey-3 border-radius fit-content"
+          >
+            <span>Legend:</span>
+            <div class="q-mt-sm flex column">
+              <label class="blocked legend-item">Rejected file</label>
+              <label class="modified legend-item">Modified file</label>
+              <label class="partial legend-item"
+                >Internal files are rejected</label
+              >
+              <label class="intact legend-item">Intact file</label>
+            </div>
+          </div>
+        </div>
         <q-separator vertical class="q-mx-sm" />
         <div class="q-pr-sm report">
           <div v-html="data.report"></div>
@@ -194,60 +213,19 @@
               </div>
               <div class="flex column justify-end">
                 <q-btn
-                  :disable="!passwords.some((el) => !el)"
+                  :disable="passwords.some((el) => !el)"
                   dense
                   class="q-mx-sm small-btn"
                   :title="rtl ? 'שלח לסינון מחדש' : 'Resend to filter'"
                   id="download"
                   :href="`${selectedHost}/eme/personalrecord/${linkId}/${
                     data.recipient ? 'send' : 'download'
-                  }download?password=${encodeURIComponent(passwords)}`"
+                  }?${passwords.map((el) => 'password=' + el + '&').join('')}`"
                 >
-                  <q-icon
-                    color="primary"
-                    :style="
-                      password
-                        ? 'position: relative; animation: download 0.5s linear 0s infinite alternate;'
-                        : ''
-                    "
-                    name="send"
-                  />
+                  <q-icon color="primary" name="send" />
                 </q-btn>
               </div>
             </div>
-            <!-- <div class="password">
-              <q-item dense>
-                <q-item-section side>
-                  <q-icon name="mdi-key-variant" color="primary" />
-                </q-item-section>
-                <q-item-section>Password:</q-item-section>
-                <q-item-section>
-                  <q-input v-model="password" label="Password" dense />
-                </q-item-section>
-                <q-btn
-                :disable="!passwords.some(el => !el)"
-                dense
-                class="q-mx-sm small-btn"
-                  :title="rtl ? 'שלח לסינון מחדש' : 'Resend to filter'"
-                  id="download"
-                  :href="`${selectedHost}/eme/personalrecord/${linkId}/${
-                    data.recipient ? 'send' : 'download'
-                  }download?password=${
-                    password ? encodeURIComponent(password) : ''
-                  }`"
-                >
-                  <q-icon
-                    color="primary"
-                    :style="
-                      password
-                        ? 'position: relative; animation: download 0.5s linear 0s infinite alternate;'
-                        : ''
-                    "
-                    name="send"
-                  />
-                </q-btn>
-              </q-item>
-            </div> -->
           </div>
         </div>
       </div>
@@ -337,6 +315,20 @@ export default defineComponent({
       return dateStr;
     };
 
+    const parseFilter = (filterStr) => {
+      switch (filterStr) {
+        case "All":
+          return 0;
+        case "Modified":
+          return 1;
+        case "Partial":
+          return 2;
+        case "Rejected":
+        default:
+          return 3;
+      }
+    };
+
     const addPassrodInput = () => {
       passwords.value.push("");
     };
@@ -376,6 +368,15 @@ export default defineComponent({
       } catch (error) {
         console.log("error", error);
       }
+    };
+
+    const PasswordsAsQueryParams = () => {
+      console.log(
+        passwords.value
+          .map((el) => "password=" + encodeURIComponent(el) + "&")
+          .join("")
+      );
+      return passwords.value.map((el) => "password=" + el + "&").join("");
     };
 
     onMounted(async () => {
@@ -434,6 +435,7 @@ export default defineComponent({
       root,
       addPassrodInput,
       deletePasswordInput,
+      PasswordsAsQueryParams,
     };
   },
 });
@@ -544,5 +546,17 @@ export default defineComponent({
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+.legend-item {
+  margin: 6px;
+}
+
+.border-radius {
+  border-radius: 0.375rem;
+}
+
+.fit-content {
+  width: fit-content;
+  height: fit-content;
 }
 </style>
