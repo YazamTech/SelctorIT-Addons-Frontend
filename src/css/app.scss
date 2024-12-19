@@ -14,3 +14,21 @@ body.body--dark {
 // body.q--dark {
 //   background: rgba(77, 77, 77, .08);
 // }
+
+.svg-wrapper {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 4px;
+  cursor: pointer;
+  height: 26px;
+  width: 26px;
+  transition: ease 0.2s;
+
+  &:active {
+    background-color: #e3e3e3;
+  }
+}
+
+.red-text {
+  color: #dc3545;
+}

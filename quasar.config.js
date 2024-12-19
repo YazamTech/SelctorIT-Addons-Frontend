@@ -11,7 +11,7 @@
 const { configure } = require("quasar/wrappers");
 const path = require("path");
 
-module.exports = configure(function (/* ctx */) {
+module.exports = configure(function (ctx) {
   return {
     eslint: {
       // fix: true,
@@ -31,12 +31,15 @@ module.exports = configure(function (/* ctx */) {
     boot: ["i18n", "axios"],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
-    css: ["app.scss"],
+    css: [
+      "app.scss",
+      '../../node_modules/bootstrap/dist/css/bootstrap.css'
+    ],
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
       // 'ionicons-v4',
-      'mdi-v7',
+      "mdi-v7",
       // 'fontawesome-v6',
       // 'eva-icons',
       // 'themify',
@@ -54,7 +57,7 @@ module.exports = configure(function (/* ctx */) {
         node: "node20",
       },
 
-      vueRouterMode: "hash", // available values: 'hash', 'history'
+      vueRouterMode: "history", // available values: 'hash', 'history'
       // vueRouterBase,
       // vueDevtools,
       // vueOptionsAPI: false,
@@ -72,7 +75,16 @@ module.exports = configure(function (/* ctx */) {
 
       // extendViteConf (viteConf) {},
       // viteVuePluginOptions: {},
-
+      extendViteConf(viteConf) {
+        // Add your Vite configuration here
+        // viteConf.resolve.alias = {
+        //   ...viteConf.resolve.alias,
+        //   "@": fileURLToPath(new URL("./src", import.meta.url))
+        // };
+        if (!ctx.dev) {
+          viteConf.base = "/engine-management/";
+        }
+      },
       vitePlugins: [
         [
           "@intlify/vite-plugin-vue-i18n",
@@ -100,7 +112,7 @@ module.exports = configure(function (/* ctx */) {
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
     framework: {
       config: {
-        dark: false
+        dark: false,
       },
 
       // iconSet: 'material-icons', // Quasar icon set

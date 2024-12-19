@@ -1,11 +1,22 @@
+import PersonalRecord from "../PersonalRecord/PersonalRecord.vue";
+
 const routes = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: 'personalrecord/:id', component: () => import('pages/PersonalRecordPage.vue') },
-    ]
+  },
+  { path: '', component: () => import('pages/IndexPage.vue') },
+  {
+    path: "/released/:id",
+    name: "PersonalRecorded",
+    component: PersonalRecord,
+    meta: { title: "Filtering Summary" },
+  },
+  {
+    path: "/release/:id",
+    name: "PersonalRecord",
+    component: PersonalRecord,
+    meta: { title: "Filtering Summary" },
   },
 
   // Always leave this as last one,

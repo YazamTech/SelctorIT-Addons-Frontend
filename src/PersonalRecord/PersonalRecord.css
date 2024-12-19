@@ -1,0 +1,68 @@
+.personal-record-wrapper {
+  height: calc(100vh - 60px);
+  max-width: calc(100vw - 50px);
+  margin: 25px;
+  padding: 5px;
+}
+
+#personal-record {
+  display: none;
+}
+
+.legend-item {
+  margin: 4px !important;
+  display: flex;
+  align-items: center;
+}
+
+.lengend-wrapper {
+  width: 390px;
+}
+
+.spread-line {
+  border: 1px solid #d1d1d1;
+}
+
+.h5 {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+
+.content-wrapper {
+  /* height: 100%; */
+  /* overflow: auto; */
+}
+
+.list-wrapper {
+  max-width: 50vw;
+  min-width: 415px;
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.z-1 {
+  z-index: 1;
+}
+
+.h-20 {
+  height: 20px;
+}
+
+.label:first-child {
+  margin-left: unset;
+}
+
+.yazam-logo {
+  position: fixed;
+  top: 0.5rem;
+  left: 2rem;
+  z-index: 10;
+  height: 27px;
+}
+
+.l-4 {
+  left: 4rem;
+}
