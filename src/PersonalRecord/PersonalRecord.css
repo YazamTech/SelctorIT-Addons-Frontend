@@ -1,7 +1,8 @@
 .personal-record-wrapper {
-  height: calc(100vh - 60px);
+  height: calc(100vh - 100px);
   max-width: calc(100vw - 50px);
   margin: 25px;
+  margin-top: 50px;
   padding: 5px;
 }
 

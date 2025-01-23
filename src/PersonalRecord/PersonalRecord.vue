@@ -13,16 +13,16 @@
       }}</span>
 
       <a
-        :href="`/engine-management/data/downloadreport/${linkId}/${rtl ? 'he' : 'en'}${
-          token ? '?token=' + token : ''
-        }`"
+        :href="`/engine-management/data/downloadreport/${linkId}/${
+          rtl ? 'he' : 'en'
+        }${token ? '?token=' + token : ''}`"
         class="z-1"
       >
         <img :src="downloadSrc" class="svg svg-wrapper" />
       </a>
     </div>
 
-    <div class="content-wrapper d-flex">
+    <div class="content-wrapper d-flex overflow-auto">
       <div class="list-wrapper">
         <ItemData
           v-for="item of dataItems"
@@ -71,13 +71,13 @@
       />
     </div>
     <small class="text-center py-2 ltr"
-      >© 2024 YazamTech Ltd. All rights reserved.</small
+      >© {{ year }} YazamTech Ltd. All rights reserved.</small
     >
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import { api, selectedHost } from "src/boot/axios";
 import ItemData from "src/components/PersonalRecord/ItemData.vue";
@@ -102,6 +102,10 @@ const dataItems = ref([]);
 const data = ref(null);
 const logoSrc = ref("");
 const token = ref("");
+
+const year = computed(() => {
+  return new Date().getFullYear();
+});
 
 const authMicrosoft = async () => {
   const pca = new PublicClientApplication({
