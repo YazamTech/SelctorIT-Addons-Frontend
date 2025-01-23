@@ -70,9 +70,7 @@
         :token="token"
       />
     </div>
-    <small class="text-center py-2 ltr"
-      >© {{ year }} YazamTech Ltd. All rights reserved.</small
-    >
+    
   </div>
 </template>
 

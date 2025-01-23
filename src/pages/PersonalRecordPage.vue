@@ -229,11 +229,7 @@
           </div>
         </div>
       </div>
-      <div
-        class="row justify-center q-pt-md text-subtitle2 text-grey-7 text-weight-thin"
-      >
-        © 2024 YazamTech Ltd. All rights reserved.
-      </div>
+      
     </div>
   </q-page>
 </template>
